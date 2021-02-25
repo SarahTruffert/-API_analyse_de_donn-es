@@ -20,6 +20,13 @@ class TestMethods(unittest.TestCase):
 
     def test_average_for_year(self):
         self.assertEqual({1975: 7.845, 1985: 6.209, 1995: 5.773, 2005: 5.887, 2010: 5.233, 2015: 4.5, 2016: 4.515, 2017:4.565}, per_capi('France'))
-                        
+        self.assertNotEqual({1975: 7.84, 1985: 6.209, 1995: 5.773, 205: 5.887, 2010: 5.233, 2015: 4.5, 2016: 4.515, 2017:4.55}, per_capi('France'))
+        self.assertTrue({1975: 7.845, 1985: 6.209, 1995: 5.773, 2005: 5.887, 2010: 5.233, 2015: 4.5, 2016: 4.515, 2017:4.565}, per_capi('France'))
+        self.assertIsNot({1975: 7.845, 1985: 6.209, 1995: 5.773, 2005: 5.887, 2010: 5.233, 2015: 4.5, 2016: 4.515, 2017:4.56}, per_capi('France'))
+        self.assertNotIsInstance(per_capi('france'),list)
+        self.assertIsInstance(per_capi('france'),dict)
+        self.assertEqual(type({1975: 7.845, 1985: 6.209, 1995: 5.773, 2005: 5.887, 2010: 5.233, 2015: 4.5, 2016: 4.515, 2017:4.565}),type(per_capi('France')))
+        
+        
 if __name__ == '__main__':
     unittest.main()
