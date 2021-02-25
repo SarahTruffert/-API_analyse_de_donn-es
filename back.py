@@ -3,50 +3,48 @@ import logging
 from flask import Flask, abort
 import pandas
 
-
-
 #  Ouvrir doc csv 
+def ouvrir_fichier():
+    df = pandas.read_csv('ong.csv',header=2, names=['id', 'country', 'year', 'emissions', 'value', 'footnotes', 'source' ])
+    return df
 
 # df.values.tolist()
 def pays():
-    fichier=pandas.read_csv('ong.csv',names=['id', 'country', 'year', 'emissions', 'value', 'footnotes', 'source' ])
-    payss = set(fichier['country'].tolist())
-    return payss
-
-
+    df = ouvrir_fichier()
+    choix_pays = set(df['country'].tolist())
+    return choix_pays
+   
+# Cette fonction affiche la derniere 
 def dico(pays):   
-    fichier=pandas.read_csv('ong.csv',names=['id', 'country', 'year', 'emissions', 'value', 'footnotes', 'source' ])
-    test= fichier.loc[fichier["country"].isin([pays])].sort_values(["year"],ascending=False)
+    df = ouvrir_fichier()
+    df= df.loc[df["country"].isin([pays])].sort_values(["year"],ascending=False)
     resultat= {}    
-    resultat["country"]= str(test.iloc[0][1]) 
-    resultat["year"]= int(test.iloc[0][2])
-    resultat["value"]= float (test.iloc[0][4])
-    return(json.dumps(resultat))
+    resultat["country"]= str(df.iloc[0][1]) 
+    resultat["year"]= int(df.iloc[0][2])
+    resultat["value"]= float (df.iloc[0][4])
+    return resultat 
 
+# Cette fonction fait la moyenne "thousand metric tons of carbon dioxide" d'une année
 def avg(year):
-    fichier=pandas.read_csv('ong.csv',header=2,names=['id', 'country', 'year', 'emissions', 'value', 'footnotes', 'source' ])       
-    # years = (fichier['year'].tolist())
-    test1=fichier.loc[fichier["year"].isin([year])]
-    test1=test1[(test1["emissions"]=='Emissions (thousand metric tons of carbon dioxide)')]
-    print(test1)
-    mean_=test1.mean()['value']
-    print(mean_)
+    df = ouvrir_fichier()
+    df = df.loc[df["year"].isin([year])]
+    df = df[(df["emissions"]=='Emissions (thousand metric tons of carbon dioxide)')]
+    print(df)
+    mean_value=df.mean()['value']
     resultat= {}
-    resultat["year"]=year
-    resultat['total']=float(mean_)
-    return (json.dumps(resultat))
+    resultat["year"] = year
+    resultat['total'] = float(mean_value)
+    print(mean_value)
+    return resultat
 
-# @app.route('/per_capita/<country>')
-# def per_capita(country):
-#     logging.debug(f"Pays demandé : {country}")
-    
-#     if country.lower()=="albania":
-#         return json.dumps({1975:4338.334, 1985:6929.926, 1995:1848.549, 2005:3825.184, 2015:3824.801, 2016:3674.183, 2017:4342.011})
-#     else:
-#         longeur=len(capita)
-#         for i in int(longeur):
-#             result['year']=str(capita.iloc[{i}][4])
-#             result['values']=float(capita.iloc[{i}][4])
-#             print(json.dumps(resultat))
+# Cette fonction calcule "metric tons of carbon dioxide" par année d'un pays
+def per_capi(country):
+    df = ouvrir_fichier()
+    df = df.loc[df['country'].isin([country])]
+    df = df[(df['emissions']=='Emissions per capita (metric tons of carbon dioxide)')]
+    resultat={}
+    longeur=len(df)
+    for i in range(longeur):
+        resultat[int(df.iloc[i][2])]=float(df.iloc[i][4])
 
-      
+    return resultat
