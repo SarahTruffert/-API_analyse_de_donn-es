@@ -13,8 +13,14 @@ class TestMethods(unittest.TestCase):
         self.assertEqual(type({"country": "Algeria", "year": 2017, "value": 130493.653}), type(dico('Algeria')))
         
 
-    def test_average_for_year(self):
+     def test_average_for_year(self):
         self.assertEqual({"year":2017, "total":219666.44571830984}, avg(2017))
+        self.assertNotEqual({"year":2017, "total":219666.44571830984}, avg(2016))
+        self.assertTrue({"year":2017, "total":219666.44571830984}, avg(2017))
+        self.assertIsNot({"year":2017, "total":219666.44571830984}, avg(2017))
+        self.assertNotIsInstance(avg(2017),list)
+        self.assertIsInstance(avg(2017),dict)
+        self.assertEqual(type({"year": 2017, "total" : 219666.44571830984}), type(avg(2017)))
 
 
 
