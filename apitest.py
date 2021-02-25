@@ -44,10 +44,10 @@ class TestApiFlask(unittest.TestCase):
         result = self.app.get("/average_by_year/1975")
         self.assertTrue(b'year' in result.data)
      
-# # fonction ('/per_capita/<country>')
-#     def test_per_capita(self):
-#         result = self.app.get('/per_capita/Algeria')
-#         self.assertNotEqual(b'footnotes' in result.data)
+# fonction ('/per_capita/<country>')
+    def test_per_capita(self):
+        result = self.app.get('/per_capita/Algeria')
+        self.assertFalse(b'year' in result.data)
 
 
 if __name__ == '__main__':
