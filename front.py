@@ -6,7 +6,8 @@ from flask import Flask, abort, jsonify
 app = Flask(__name__)
 app.config['JSON_SORT_KEYS'] = False
 import logging
-# Arreter de ranger par ordre alphabétique
+
+"""app.config['JSON_SORT_KEYS'] = False Arreter de ranger par ordre alphabétique"""
 
 logging.basicConfig(
     filename="logging_api.log",
