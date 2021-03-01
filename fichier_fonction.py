@@ -7,13 +7,15 @@ from flask import abort
 def ouvrir_fichier():
     """This function make the connexion with the csv file
     """
-    df = pandas.read_csv('ong.csv',header=2, names=['id', 'country', 'year', 'emissions', 'value', 'footnotes', 'source' ])
-    return df
-
+    df = pandas.read_csv('ong.csv', header=2, names=['id', 'country', 'year', 'emissions', 'value', 'footnotes', 'source'])
+    if df is None:
+        return abort(404)
+    else:
+        return df
 
 
 def pays():
-    """This function permit to convert the csv file to list 
+    """This function permit to convert the csv file to list
     """
     df = ouvrir_fichier()
     choix_pays = set(df['country'].tolist())
@@ -21,16 +23,16 @@ def pays():
 
 
 
-def dico(pays):   
+def dico(pays):
     """This function order the csv file to make some request, and answer
-    """ 
+    """
     df = ouvrir_fichier()
     df= df.loc[df["country"].isin([pays])].sort_values(["year"],ascending=False)
-    resultat= {}    
+    resultat= {}  
     resultat["country"]= str(df.iloc[0][1]) 
     resultat["year"]= int(df.iloc[0][2])
     resultat["value"]= float (df.iloc[0][4])
-    return resultat 
+    return resultat
 
 
 def avg(year):
@@ -60,4 +62,3 @@ def per_capi(country):
         resultat[int(df.iloc[i][2])]=float(df.iloc[i][4])
 
     return resultat
-
