@@ -1,5 +1,7 @@
 import unittest
-from back import dico, avg, per_capi
+from fichier_fonction import dico
+from fichier_fonction import avg
+from fichier_fonction import per_capi
 
 
 class TestMethods(unittest.TestCase):
@@ -35,7 +37,7 @@ class TestMethods(unittest.TestCase):
         self.assertEqual(type(
             {"year": 2017, "total": 219666.44571830984}), type(avg(2017)))
 
-    def test_average_for_year(self):
+    def test_average_for_capita(self):
         self.assertEqual(
             {
                 1975: 7.845,
