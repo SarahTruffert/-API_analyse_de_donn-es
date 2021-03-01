@@ -18,30 +18,34 @@ logging.basicConfig(
 def hello_world():
     """def hello_world : Display hello world
     """
-    app.logger.info(f"Hello World")
+    app.logger.info(f"{'Hello World'}")
     return jsonify('Hello, World!')
+
 
 @app.route('/latest_by_country/<country>')
 def by_country(country):
-    """latest by country function 
+    """latest by country function
     to found the last co2 emssion per country"""
-    app.logger.debug(f"Affiche dernière donnée pays")
+    app.logger.debug(f"{'Affiche dernière donnée pays'}")
     return jsonify(dico(country))
+
 
 @app.route('/average_by_year/<year>')
 def average_for_year(year):
     """def average : Calcul average for a year
     """
-    app.logger.debug(f"Average")
+    app.logger.debug(f"{'Average'}")
     return jsonify(avg(year))
-     
+
+
 @app.route('/per_capita/<country>')
 def per_capita(country):
     """def per capita to calcul
     the C02 per capita/year"""
-    app.logger.debug(f"calcul tons of carbon dioxide/ year/ country")
+    app.logger.debug(f"{'calcul tons of carbon dioxide/ year/ country'}")
     return jsonify(per_capi(country))
 
 
-if __name__=="__main__":
-    app.run(debug=True)  
+if __name__ == "__main__":
+    app.run(debug=True)
+
