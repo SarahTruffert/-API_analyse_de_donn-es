@@ -8,10 +8,7 @@ def ouvrir_fichier():
     """This function make the connexion with the csv file
     """
     df = pandas.read_csv('ong.csv',header=2, names=['id', 'country', 'year', 'emissions', 'value', 'footnotes', 'source' ])
-    if not df:
-        return abort(404)
-    else:
-        return df
+    return df
 
 
 
