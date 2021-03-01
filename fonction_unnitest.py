@@ -6,6 +6,8 @@ from fichier_fonction import per_capi
 
 class TestMethods(unittest.TestCase):
     def test_by_country(self):
+        """test by country if the result is equal to the example below
+        """
         self.assertEqual(
             {"country": "Algeria", "year": 2017, "value": 130493.653},
             dico('Algeria'))
@@ -25,6 +27,8 @@ class TestMethods(unittest.TestCase):
                 ), type(dico('Algeria')))
 
     def test_average_for_year(self):
+        """test by year if the result is equal to the example below
+        """
         self.assertEqual(
             {"year": 2017, "total": 219666.44571830984}, avg(2017))
         self.assertNotEqual(
@@ -38,6 +42,8 @@ class TestMethods(unittest.TestCase):
             {"year": 2017, "total": 219666.44571830984}), type(avg(2017)))
 
     def test_average_for_capita(self):
+        """test country if the result is equal to the example below
+        """
         self.assertEqual(
             {
                 1975: 7.845,
@@ -94,3 +100,4 @@ class TestMethods(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
