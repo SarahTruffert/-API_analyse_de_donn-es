@@ -46,20 +46,20 @@ class TestApiFlask(unittest.TestCase):
 
 #def by_country(country):
     def test_home_by_country(self):
-        """by_country test si country figure dans la requête
+        """by_country if country display
         """
         result = self.app.get('/latest_by_country/Albania')
         self.assertTrue(b'country'in result.data)
 
 # fonction average :
-        """ test average by year test si year figure dans la requête
+        """ test average by year test if year display in te request
         """
     def test_average_by_year_data(self):
         result = self.app.get("/average_by_year/1975")
         self.assertTrue(b'year' in result.data)
      
 # fonction ('/per_capita/<country>')
-        """ Test per_capita si year ne figure pas dans la 
+        """ Test per_capita if year doesn't display 
         """
     def test_per_capita(self):
         result = self.app.get('/per_capita/Algeria')
